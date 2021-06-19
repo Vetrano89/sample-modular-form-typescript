@@ -16,11 +16,14 @@ const overrides = {
       fontSize: '1.5rem',
     },
     h5: {
-      fontSize: '1.285rem',
+      fontSize: '18px',
     },
     h6: {
-      fontSize: '1.142rem',
+      fontSize: '16px',
     },
+    body1: {
+      fontSize: '14px'
+    }
   },
 };
 

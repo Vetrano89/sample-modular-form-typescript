@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme: Theme) =>
       justifyContent: 'space-between',
       width: '100%'
     },
-    menuButton: {
+    sagetapIcon: {
       marginRight: theme.spacing(5),
       height: '34px', // Exact height from imported Figma asset
       width: '35px', // Exact width from imported Figma asset
@@ -46,10 +46,10 @@ export const TopNav: FC<TopNavProps> = ({ title = 'Description and title' }): Re
         <Toolbar disableGutters className={classes.toolbar}>
           <FlexBox className={classes.titleIconContainer}>
             <FlexBox>
-              <Icon className={classes.menuButton} aria-label="logo">
+              <Icon className={classes.sagetapIcon} aria-label="logo">
                 <SageTapIcon />
               </Icon>
-              <Typography variant="h6" className={classes.title} color="textPrimary">
+              <Typography variant="h5" className={classes.title} color="textPrimary">
                 {title}
               </Typography>
             </FlexBox>
