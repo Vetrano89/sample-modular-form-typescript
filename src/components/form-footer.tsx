@@ -1,16 +1,14 @@
-import React, { ReactElement, FC } from 'react';
-import { useContextValue } from '../hooks/context-hooks';
+import React, { ReactElement, FC, useContext } from 'react';
 import { createStyles, withStyles, Theme } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 import { ReactComponent as BackArrow } from '../img/back-arrow.svg';
 import { isInitialStep } from '../helpers/step-helpers';
+import { Context } from '../App';
 
 export const FormFooter: FC = (): ReactElement => {
-  const contextValue = useContextValue();
+  const contextValue = useContext(Context);
   const { currentStep, currentSubStepIndex, incrementStep, decrementStep } = contextValue;
-
-  console.log('ran');
 
   return (
     <FlexBox>

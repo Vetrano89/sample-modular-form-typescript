@@ -20,20 +20,21 @@ export const contextDefaultValue: ContextData = {
   // decrementStep: () => { },
 };
 
-export const Context = createContext<ContextData | undefined>(undefined);
+export const Context = createContext<ContextData>(contextDefaultValue);
 
 const App: FC = (): ReactElement => {
-  const contextValue = useContextValue();
-  console.log(contextValue);
+  const context = useContextValue();
+  console.log('Context');
+  console.log(context);
 
   return (
-    <ThemeProvider theme={Themes.default}>
-      <Context.Provider value={contextValue}>
+    <Context.Provider value={context}>
+      <ThemeProvider theme={Themes.default}>
         <div className="App">
           <Main />
         </div>
-      </Context.Provider>
-    </ThemeProvider>
+      </ThemeProvider>
+    </Context.Provider>
   );
 }
 

@@ -25,11 +25,7 @@ export const Main: FC = (): ReactElement => {
     <div className={classes.root}>
       <TopNav />
       {/* Router/Main view */}
-      <SignupContainer renderMain={() => <div />}
-        tip={{
-          title: 'Cloud Architects are in high demand!',
-          body: "Refer a cloud architect and earn 10% of what they earn in their first 12 months on Sagetap!"
-        }} />
+      <SignupContainer renderMain={() => <div />} />
     </div>
   );
 }

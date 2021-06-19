@@ -1,4 +1,4 @@
-import React, { ReactElement, FC } from 'react';
+import React, { ReactElement, FC, useContext } from 'react';
 import { createStyles, makeStyles, withStyles, Theme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -8,6 +8,7 @@ import Icon from '@material-ui/core/Icon';
 import Box from '@material-ui/core/Box';
 import ProgressBar from './progress-bar';
 import { ReactComponent as SageTapIcon } from '../img/sage-tap-icon.svg';
+import { Context } from '../App';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -33,12 +34,11 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-interface TopNavProps {
-  title?: string
-}
-
-export const TopNav: FC<TopNavProps> = ({ title = 'Description and title' }): ReactElement => {
+export const TopNav: FC = (): ReactElement => {
   const classes = useStyles();
+  const context = useContext(Context);
+
+  const { currentStep } = context;
 
   return (
     <div className={classes.root}>
@@ -50,7 +50,7 @@ export const TopNav: FC<TopNavProps> = ({ title = 'Description and title' }): Re
                 <SageTapIcon />
               </Icon>
               <Typography variant="h5" className={classes.title} color="textPrimary">
-                {title}
+                {currentStep.title}
               </Typography>
             </FlexBox>
             <Link

@@ -1,8 +1,9 @@
-import React, { ReactElement, FC } from 'react';
+import React, { ReactElement, FC, useContext } from 'react';
 import { createStyles, makeStyles, withStyles, Theme } from '@material-ui/core/styles';
-import Tip, { TipProps } from './tip';
+import Tip from './tip';
 import Box from '@material-ui/core/Box';
 import FormFooter from './form-footer';
+import { Context } from '../App';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -31,11 +32,13 @@ const useStyles = makeStyles((theme: Theme) =>
 interface SignupContainerProps {
   renderMain: () => ReactElement;
   renderSecondary?: () => ReactElement;
-  tip?: TipProps;
 }
 
-export const SignupContainer: FC<SignupContainerProps> = ({ renderMain, renderSecondary, tip }): ReactElement => {
+export const SignupContainer: FC<SignupContainerProps> = ({ renderMain, renderSecondary }): ReactElement => {
   const classes = useStyles();
+  const context = useContext(Context);
+
+  const tip = context && context.currentStep.subSteps[context.currentSubStepIndex].tip;
 
   return (
     <SplitFlexBox>

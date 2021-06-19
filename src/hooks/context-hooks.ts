@@ -27,9 +27,6 @@ export function useContextValue(): ContextData {
     }
   }
 
-  console.log(currentStep);
-  console.log('sub step: ', currentSubStepIndex)
-
   return {
     currentStep,
     currentSubStepIndex,
