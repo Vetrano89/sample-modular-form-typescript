@@ -9,6 +9,7 @@ import Box from '@material-ui/core/Box';
 import ProgressBar from './progress-bar';
 import { ReactComponent as SageTapIcon } from '../img/sage-tap-icon.svg';
 import { Context } from '../App';
+import { getStepProgress } from '../helpers/step-helpers';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -38,7 +39,7 @@ export const TopNav: FC = (): ReactElement => {
   const classes = useStyles();
   const context = useContext(Context);
 
-  const { currentStep } = context;
+  const { currentStep, currentSubStepIndex } = context;
 
   return (
     <div className={classes.root}>
@@ -65,7 +66,7 @@ export const TopNav: FC = (): ReactElement => {
           </FlexBox>
         </Toolbar>
       </AppBar>
-      <ProgressBar value={10}></ProgressBar>
+      <ProgressBar value={getStepProgress(currentStep, currentSubStepIndex)}></ProgressBar>
     </div>
   );
 }

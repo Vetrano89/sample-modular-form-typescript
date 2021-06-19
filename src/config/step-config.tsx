@@ -116,3 +116,5 @@ export const mainSteps: MainStep[] = [
     ]
   }
 ]
+
+export const TOTAL_STEPS: number = mainSteps.reduce((acc, step) => { return acc + step.subSteps.length }, 0)
