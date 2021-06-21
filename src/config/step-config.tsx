@@ -2,6 +2,7 @@ import { ReactElement } from 'react-transition-group/node_modules/@types/react';
 import { Tip, constructInsightTip } from './tip-config';
 import { FormikProps } from 'formik';
 import BasicInfoForm from '../view/basic-info-form';
+import CloudProviderForm from '../view/cloud-provider-form';
 
 export enum DescriptionAndTitleSubSteps {
   DESCRIPTION_AND_TITLE = 0
@@ -56,17 +57,19 @@ export const mainSteps: MainStep[] = [
         tip: {
           title: 'Add Cloud Environment',
           body: '@95%@ of vendors want to speak with experts operating in cloud-enabled enviroments. If that’s you, make sure let them know on your profile!',
-        }
+        },
       },
       {
         title: 'Which cloud provider(s) do you currently use?',
         tip: constructInsightTip({
           number: 304,
           environmentType: 'Hybrid Cloud'
-        })
+        }),
+        renderFormContent: (formik, setHasErrors) => <CloudProviderForm formik={formik} setHasErrors={setHasErrors} />
+
       },
       {
-        title: 'Is your environment runnning on any container or orchestration tools?'
+        title: 'Is your environment running on any container or orchestration tools?'
       },
       {
         title: 'Add products'

@@ -4,13 +4,22 @@ export function isInitialStep(currentStep: MainStep, subStepIndex: number): bool
   return currentStep.stepNumber === 0 && subStepIndex === 0;
 }
 
-export function getStepProgress(currentStep: MainStep, subStepIndex: number): number {
+export function totalCompletedSubSteps(currentStep: MainStep, subStepIndex: number): number {
   const currentStepCompletedSubSteps = subStepIndex + 1;
-  const totalCompletedSubSteps: number = mainSteps
+  return mainSteps
     .filter((step) => step.stepNumber < currentStep.stepNumber)
     .reduce((acc, step) => {
       return acc = acc + step.subSteps.length
     }, 0) + currentStepCompletedSubSteps;
+}
 
-  return totalCompletedSubSteps / TOTAL_STEPS * 100;
+export function isLastStep(currentStep: MainStep, subStepIndex: number): boolean {
+  const completedSubSteps = totalCompletedSubSteps(currentStep, subStepIndex);
+  return TOTAL_STEPS === completedSubSteps;
+}
+
+export function getStepProgress(currentStep: MainStep, subStepIndex: number): number {
+  const completedSubSteps = totalCompletedSubSteps(currentStep, subStepIndex);
+
+  return completedSubSteps / TOTAL_STEPS * 100;
 }

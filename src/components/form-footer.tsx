@@ -3,7 +3,7 @@ import { createStyles, withStyles, makeStyles, Theme } from '@material-ui/core/s
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 import { ReactComponent as BackArrow } from '../img/back-arrow.svg';
-import { isInitialStep } from '../helpers/step-helpers';
+import { isInitialStep, isLastStep } from '../helpers/step-helpers';
 import { Context } from '../App';
 
 const useStyles = makeStyles(() =>
@@ -23,10 +23,13 @@ interface FormFooterProps {
   canContinue: boolean
 }
 
-export const FormFooter: FC<FormFooterProps> = ({ canContinue }): ReactElement => {
+export const FormFooter: FC<FormFooterProps> = ({ canContinue = true }): ReactElement => {
   const classes = useStyles();
   const contextValue = useContext(Context);
   const { currentStep, currentSubStepIndex, incrementStep, decrementStep } = contextValue;
+
+  /* Going backwards from a page with errors maintains the error state */
+  /* Will be resolved once each form has a custom form component */
 
   return (
     <FooterContainer>
@@ -47,7 +50,7 @@ export const FormFooter: FC<FormFooterProps> = ({ canContinue }): ReactElement =
         size="large"
         disableElevation
         onClick={incrementStep}
-        disabled={!canContinue}
+        disabled={!canContinue || isLastStep(currentStep, currentSubStepIndex)}
       >
         <p className={classes.buttonText}>Next</p>
       </Button>

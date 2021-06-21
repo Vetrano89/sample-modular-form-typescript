@@ -2,6 +2,8 @@ import React, { FC, ReactElement } from 'react';
 import { makeStyles, createStyles, withStyles } from '@material-ui/core/styles';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
+/* TODO: Remove border-radius when progress complete  */
+
 const useStyles = makeStyles({
   root: {
     width: '100%',
@@ -27,9 +29,6 @@ export const ProgressBar: FC<ProgressBarProps> = ({ value }): ReactElement => {
 }
 
 export default ProgressBar
-
-
-/* Custom styled component */
 
 const RoundedLinearProgress = withStyles(() =>
   createStyles({

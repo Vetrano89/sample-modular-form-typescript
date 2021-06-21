@@ -15,6 +15,11 @@ const validationSchema = yup.object({
   industry: yup.string().required('Industry is required.'),
   companySize: yup.string().required('Company size is required.'),
   location: yup.string().nullable().required('Location is required.'),
+  cloudProviders: yup.array().of(yup.object().shape({
+    name: yup.string(),
+    percentage: yup.number(),
+  }))
+    .min(1, 'Provide at least one Cloud Provider')
 });
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -41,6 +46,7 @@ export const FormContent: FC = (): ReactElement => {
       industry: '',
       companySize: '',
       location: '',
+      cloudProviders: [],
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
@@ -58,7 +64,6 @@ export const FormContent: FC = (): ReactElement => {
       </Container>
       <FormFooter canContinue={!hasError} />
     </>
-
   );
 }
 
