@@ -1,29 +1,10 @@
 import { ReactElement } from 'react-transition-group/node_modules/@types/react';
 import { Tip, constructInsightTip } from './tip-config';
-import { FormikContextType } from 'formik';
+import { FormikProps } from 'formik';
 import BasicInfoForm from '../components/basic-info-form';
 
 export enum DescriptionAndTitleSubSteps {
   DESCRIPTION_AND_TITLE = 0
-}
-
-enum CurrentEnvironmentSubSteps {
-  NICKNAME = 1,
-  ENVIRONMENT_TYPE = 2,
-  CLOUD_PROVIDERS = 3,
-  CONTAINER_TOOLS = 4,
-  ADD_PRODUCTS = 5,
-  LAST_EVALUATION = 6,
-  TECHNOLOGY_BIO = 7,
-}
-
-enum CalendarAndAvailabilitySubSteps {
-  ACCURACY_PROMISE = 8,
-  SET_AVAILABILITY = 9,
-}
-
-enum PaymentsSubSteps {
-  PAYMENTS = 10
 }
 
 // TODO: We could make these types really strict by defining each step and substep as a type individually
@@ -39,7 +20,9 @@ export interface MainStep {
 export interface SubStep {
   title: string;
   tip?: Tip;
-  renderFormContent?: (formik: FormikContextType<any>, setHasErrors: ((hasErrors: boolean) => void)) => ReactElement; // TODO: remove optional
+  // TODO: Define all possible fields and allow an object with any of those fields (instead of any)
+  // eslint-disable-next-line
+  renderFormContent?: (formik: FormikProps<any>, setHasErrors: ((hasErrors: boolean) => void)) => ReactElement; // TODO: remove optional
   renderSecondaryContent?: () => ReactElement;
 }
 
@@ -89,7 +72,11 @@ export const mainSteps: MainStep[] = [
         title: 'Add products'
       },
       {
-        title: 'What was the last evaluation you participated in?'
+        title: 'What was the last evaluation you participated in?',
+        tip: {
+          title: 'Current Usage Should Equal 100%',
+          body: 'To continue, be share to add percetage usage across cloud providers to give vendors an accurate represntation of your current environment.',
+        }
       },
       {
         title: 'Create your technology bio'

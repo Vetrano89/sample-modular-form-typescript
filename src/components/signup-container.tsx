@@ -2,7 +2,6 @@ import React, { ReactElement, FC, useContext } from 'react';
 import { createStyles, makeStyles, withStyles, Theme } from '@material-ui/core/styles';
 import Tip from './tip';
 import Box from '@material-ui/core/Box';
-import FormFooter from './form-footer';
 import { Context } from '../App';
 import FormContent from './form-content';
 
@@ -33,7 +32,7 @@ const useStyles = makeStyles((theme: Theme) =>
 export const SignupContainer: FC = (): ReactElement => {
   const classes = useStyles();
   const context = useContext(Context);
-  const { tip, renderFormContent, renderSecondaryContent } = context.currentStep.subSteps[context.currentSubStepIndex];
+  const { tip, renderSecondaryContent } = context.currentStep.subSteps[context.currentSubStepIndex];
 
   return (
     <SplitFlexBox>
@@ -54,10 +53,7 @@ export const SignupContainer: FC = (): ReactElement => {
 
 export default SignupContainer;
 
-/* Custom styled component */
-
-/* TODO: Make a generic Flex component? */
-const SplitFlexBox = withStyles((theme: Theme) =>
+const SplitFlexBox = withStyles(() =>
   createStyles({
     root: {
       display: 'flex',

@@ -1,9 +1,9 @@
-import React, { FC, ReactElement, createContext, useEffect } from 'react';
+import React, { FC, ReactElement, createContext } from 'react';
 import { ThemeProvider } from '@material-ui/styles';
 import './App.css';
 import Main from './view/main';
 import Themes from './themes';
-import { mainSteps, MainStep, SubStep } from './config/step-config';
+import { mainSteps, MainStep } from './config/step-config';
 import { useContextValue } from './hooks/context-hooks';
 
 export interface ContextData {

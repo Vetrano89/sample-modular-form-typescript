@@ -1,5 +1,5 @@
 import React, { FC, ReactElement } from 'react';
-import { makeStyles, createStyles, withStyles, Theme } from '@material-ui/core/styles';
+import { makeStyles, createStyles, withStyles } from '@material-ui/core/styles';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
 const useStyles = makeStyles({
@@ -31,7 +31,7 @@ export default ProgressBar
 
 /* Custom styled component */
 
-const RoundedLinearProgress = withStyles((theme: Theme) =>
+const RoundedLinearProgress = withStyles(() =>
   createStyles({
     root: {
       height: 10,

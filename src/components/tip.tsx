@@ -1,13 +1,12 @@
-import React, { ReactElement, FC } from 'react';
+import React, { ReactElement, FC, ReactNodeArray } from 'react';
 import { createStyles, makeStyles, withStyles, Theme } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Icon from '@material-ui/core/Icon';
 import { ReactComponent as LightbulbIcon } from '../img/lightbulb-icon.svg';
+import reactStringReplace from 'react-string-replace';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -19,14 +18,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     cardContent: {
       padding: theme.spacing(6)
-    },
-    bullet: {
-      display: 'inline-block',
-      margin: '0 2px',
-      transform: 'scale(0.8)',
-    },
-    pos: {
-      marginBottom: theme.spacing(6),
     },
     tipIcon: {
       height: 32,
@@ -46,10 +37,10 @@ const useStyles = makeStyles((theme: Theme) =>
 export interface TipProps {
   title: string;
   body: string;
-  tertiary?: () => ReactElement;
+  tertiary?: () => ReactElement; // To render custom components after the tip body
 }
 
-export const Tip: FC<TipProps> = ({ title, body, tertiary }): ReactElement => {
+export const Tip: FC<TipProps> = ({ title, body }): ReactElement => {
   const classes = useStyles();
 
   return (
@@ -63,7 +54,7 @@ export const Tip: FC<TipProps> = ({ title, body, tertiary }): ReactElement => {
             {title}
           </Typography>
           <Typography className={classes.body} color="textSecondary" gutterBottom>
-            {body}
+            {highlightMarkedText(body)}
           </Typography>
         </FlexBox>
       </CardContent>
@@ -71,12 +62,27 @@ export const Tip: FC<TipProps> = ({ title, body, tertiary }): ReactElement => {
   );
 }
 
+/* Custom styled component for #highlightMarkedText */
+const HighlightedText = withStyles(() =>
+  createStyles({
+    root: {
+      color: '#00A0FF',
+      display: 'inline'
+    },
+  }),
+)(Typography);
+
+/* Dynamically highlight any text that starts or ends with @ */
+function highlightMarkedText(text: string): ReactNodeArray {
+  const startsAndEndsWithAtSymbolRegEx = /[@_]{1}([^@_]+)[@_]{1}/g;
+  return reactStringReplace(text, startsAndEndsWithAtSymbolRegEx, (match, i) => (
+    <HighlightedText key={i}>{match}</HighlightedText>
+  ));
+}
+
 export default Tip;
 
-/* Custom styled component */
-
-/* TODO: Make a generic Flex component? */
-const FlexBox = withStyles((theme: Theme) =>
+const FlexBox = withStyles(() =>
   createStyles({
     root: {
       display: 'flex',

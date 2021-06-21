@@ -6,7 +6,7 @@ import { ReactComponent as BackArrow } from '../img/back-arrow.svg';
 import { isInitialStep } from '../helpers/step-helpers';
 import { Context } from '../App';
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     buttonText: {
       color: 'white'
@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme: Theme) =>
     button: {
       width: 85,
       height: 48,
-      textTransform: 'none'
+      textTransform: 'none' // Material-ui forces UPPERCASE so we need to override that
     }
   }),
 );

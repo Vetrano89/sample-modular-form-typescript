@@ -1,9 +1,8 @@
-import React, { ReactElement, FC, ChangeEvent } from 'react';
+import React, { ReactElement, FC, ChangeEvent, useEffect } from 'react';
 import TextField from '@material-ui/core/TextField';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles, Theme } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
 import { FormProps } from '../config/form-config';
 import FormLabel from './form-label';
 import FormHint from './form-hint';
@@ -28,20 +27,25 @@ const useStyles = makeStyles((theme: Theme) => ({
     flexDirection: 'column',
     alignItems: 'center',
   },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
 }));
 
 export const BasicInfoForm: FC<FormProps> = ({ formik, setHasErrors }): ReactElement => {
   const classes = useStyles();
+  const formTouched = Object.keys(formik.touched).length > 0;
+
+  useEffect(() => {
+    setHasErrors(!formTouched || hasErrors(formik, fields));
+  }, [formik])
+
   console.log('Formik');
   console.log(formik);
 
   const handleOnChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const formTouched = Object.keys(formik.touched).length > 0;
     formik.handleChange(event);
-    setHasErrors(!formTouched && hasErrors(formik, fields));
+  }
+
+  const handleOnSelectChange = (name: string, value: string) => {
+    formik.setFieldValue(name, value)
   }
 
   return (
@@ -51,9 +55,9 @@ export const BasicInfoForm: FC<FormProps> = ({ formik, setHasErrors }): ReactEle
           <Grid item xs={12} sm={6}>
             <FormLabel>First Name</FormLabel>
             <TextField
-              autoComplete="fname"
               id="firstName"
               name="firstName"
+              autoComplete="fname"
               onChange={handleOnChange}
               onBlur={formik.handleBlur}
               value={formik.values.firstName}
@@ -67,13 +71,13 @@ export const BasicInfoForm: FC<FormProps> = ({ formik, setHasErrors }): ReactEle
           <Grid item xs={12} sm={6}>
             <FormLabel>Last Name</FormLabel>
             <TextField
-              variant="outlined"
-              fullWidth
               id="lastName"
               name="lastName"
               autoComplete="lname"
+              variant="outlined"
+              fullWidth
               value={formik.values.lastName}
-              onChange={formik.handleChange}
+              onChange={handleOnChange}
               onBlur={formik.handleBlur}
               error={formik.touched.lastName && Boolean(formik.errors.lastName)}
               helperText={formik.touched.lastName && formik.errors.lastName}
@@ -82,12 +86,12 @@ export const BasicInfoForm: FC<FormProps> = ({ formik, setHasErrors }): ReactEle
           <Grid item xs={12}>
             <FormLabel>Job Title</FormLabel>
             <TextField
-              variant="outlined"
-              fullWidth
               id="jobTitle"
               name="jobTitle"
+              variant="outlined"
+              fullWidth
               value={formik.values.jobTitle}
-              onChange={formik.handleChange}
+              onChange={handleOnChange}
               onBlur={formik.handleBlur}
               error={formik.touched.jobTitle && Boolean(formik.errors.jobTitle)}
             />
@@ -104,7 +108,7 @@ export const BasicInfoForm: FC<FormProps> = ({ formik, setHasErrors }): ReactEle
               name="industry"
               value={formik.values.industry}
               error={formik.touched.industry && Boolean(formik.errors.industry)}
-              onChange={formik.handleChange}
+              onChange={(event) => handleOnSelectChange('industry', event.target.value as string)}
               onBlur={formik.handleBlur}
               fullWidth
             >
@@ -130,7 +134,7 @@ export const BasicInfoForm: FC<FormProps> = ({ formik, setHasErrors }): ReactEle
               name="companySize"
               value={formik.values.companySize}
               error={formik.touched.companySize && Boolean(formik.errors.companySize)}
-              onChange={formik.handleChange}
+              onChange={(event) => handleOnSelectChange('companySize', event.target.value as string)}
               onBlur={formik.handleBlur}
               fullWidth
             >
@@ -152,9 +156,9 @@ export const BasicInfoForm: FC<FormProps> = ({ formik, setHasErrors }): ReactEle
             <FormLabel>Location</FormLabel>
             <Autocomplete
               id="location"
-              options={['San Francisco, CA', 'Philadelphia, PA', 'New York, NY', 'Chicago, IL', 'Klingonii']}
+              options={['Location not found', 'San Francisco, CA', 'Philadelphia, PA', 'New York, NY', 'Chicago, IL', 'Klingonii']}
               value={formik.values.location}
-              onChange={(e, value) => formik.setFieldValue("location", value)}
+              onChange={(event, value) => handleOnSelectChange('location', value)}
               onBlur={formik.handleBlur}
               renderInput={(params) => <TextField
                 {...params}

@@ -73,8 +73,7 @@ export const TopNav: FC = (): ReactElement => {
 
 export default TopNav;
 
-/* TODO: Make a generic Flex component? */
-const FlexBox = withStyles((theme: Theme) =>
+const FlexBox = withStyles(() =>
   createStyles({
     root: {
       display: 'flex',
