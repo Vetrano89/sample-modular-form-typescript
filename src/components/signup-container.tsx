@@ -4,6 +4,7 @@ import Tip from './tip';
 import Box from '@material-ui/core/Box';
 import FormFooter from './form-footer';
 import { Context } from '../App';
+import FormContent from './form-content';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -23,35 +24,29 @@ const useStyles = makeStyles((theme: Theme) =>
       width: '100%'
     },
     tip: {
-      paddingTop: theme.spacing(15),
-      paddingLeft: theme.spacing(3)
+      paddingTop: theme.spacing(30),
+      paddingLeft: theme.spacing(6)
     }
   }),
 );
 
-interface SignupContainerProps {
-  renderMain: () => ReactElement;
-  renderSecondary?: () => ReactElement;
-}
-
-export const SignupContainer: FC<SignupContainerProps> = ({ renderMain, renderSecondary }): ReactElement => {
+export const SignupContainer: FC = (): ReactElement => {
   const classes = useStyles();
   const context = useContext(Context);
-
-  const tip = context && context.currentStep.subSteps[context.currentSubStepIndex].tip;
+  const { tip, renderFormContent, renderSecondaryContent } = context.currentStep.subSteps[context.currentSubStepIndex];
 
   return (
     <SplitFlexBox>
       <div className={classes.main}>
-        {renderMain()}
-        <div className={classes.footer}>
-          <FormFooter />
-        </div>
+        <FormContent />
       </div>
       <div className={classes.secondary}>
-        {renderSecondary && renderSecondary()}
-        {tip && <div className={classes.tip}>
-          <Tip {...tip} /> </div>}
+        {renderSecondaryContent && renderSecondaryContent()}
+        {tip && (
+          <div className={classes.tip}>
+            <Tip {...tip} />
+          </div>
+        )}
       </div>
     </SplitFlexBox>
   );

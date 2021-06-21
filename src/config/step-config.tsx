@@ -1,5 +1,7 @@
 import { ReactElement } from 'react-transition-group/node_modules/@types/react';
 import { Tip, constructInsightTip } from './tip-config';
+import { FormikContextType } from 'formik';
+import BasicInfoForm from '../components/basic-info-form';
 
 export enum DescriptionAndTitleSubSteps {
   DESCRIPTION_AND_TITLE = 0
@@ -37,7 +39,8 @@ export interface MainStep {
 export interface SubStep {
   title: string;
   tip?: Tip;
-  customRender?: () => ReactElement;
+  renderFormContent?: (formik: FormikContextType<any>, setHasErrors: ((hasErrors: boolean) => void)) => ReactElement; // TODO: remove optional
+  renderSecondaryContent?: () => ReactElement;
 }
 
 export const mainSteps: MainStep[] = [
@@ -51,11 +54,12 @@ export const mainSteps: MainStep[] = [
         tip: {
           title: 'Cloud Architects are in high demand!',
           body: 'Refer a cloud architect and earn 10% of what they earn in their first 12 months on sagetap!',
-        }
+        },
+        renderFormContent: (formik, setHasErrors) => <BasicInfoForm formik={formik} setHasErrors={setHasErrors} />
       },
       {
         title: 'Would you like to go by a nickname?',
-        customRender: () => <div>How your profile is displayed:</div>
+        renderSecondaryContent: () => <div>How your profile is displayed:</div>
       },
     ]
   },

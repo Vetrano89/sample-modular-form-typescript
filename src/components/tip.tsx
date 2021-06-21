@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme: Theme) =>
       boxSizing: 'border-box'
     },
     cardContent: {
-      padding: theme.spacing(3)
+      padding: theme.spacing(6)
     },
     bullet: {
       display: 'inline-block',
@@ -26,12 +26,12 @@ const useStyles = makeStyles((theme: Theme) =>
       transform: 'scale(0.8)',
     },
     pos: {
-      marginBottom: 12,
+      marginBottom: theme.spacing(6),
     },
     tipIcon: {
       height: 32,
       width: 32,
-      paddingBottom: theme.spacing(2)
+      paddingBottom: theme.spacing(4)
     },
     title: {
       whiteSpace: 'nowrap',

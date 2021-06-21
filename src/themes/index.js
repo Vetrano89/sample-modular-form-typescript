@@ -28,7 +28,7 @@ const overrides = {
 };
 
 const themes = {
-  default: createMuiTheme({ ...defaultTheme, ...overrides }),
+  default: createMuiTheme({ ...defaultTheme, ...overrides, spacing: 4 }),
 };
 
 export default themes;

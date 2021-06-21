@@ -25,7 +25,7 @@ export const Main: FC = (): ReactElement => {
     <div className={classes.root}>
       <TopNav />
       {/* Router/Main view */}
-      <SignupContainer renderMain={() => <div />} />
+      <SignupContainer />
     </div>
   );
 }
