@@ -1,7 +1,7 @@
 import { ReactElement } from 'react-transition-group/node_modules/@types/react';
 import { Tip, constructInsightTip } from './tip-config';
 import { FormikProps } from 'formik';
-import BasicInfoForm from '../components/basic-info-form';
+import BasicInfoForm from '../view/basic-info-form';
 
 export enum DescriptionAndTitleSubSteps {
   DESCRIPTION_AND_TITLE = 0
@@ -11,7 +11,7 @@ export enum DescriptionAndTitleSubSteps {
 // with titles and substeps defined in those types
 
 export interface MainStep {
-  id: 'DESCRIPTION_AND_TITLE' | 'CURRENT_ENVIRONMENT' | 'CALENDAR_AND_AVAILABILITY' | 'PAYMENTS' | 'FINALIZE';
+  id: 'DESCRIPTION_AND_TITLE' | 'CURRENT_ENVIRONMENT' | 'CALENDAR_AND_AVAILABILITY' | 'PAYMENTS';
   title: string;
   stepNumber: number; // Avoids needing to loop through the array to findIndex when moving between steps
   subSteps: SubStep[];
@@ -38,7 +38,7 @@ export const mainSteps: MainStep[] = [
           title: 'Cloud Architects are in high demand!',
           body: 'Refer a cloud architect and earn 10% of what they earn in their first 12 months on sagetap!',
         },
-        renderFormContent: (formik, setHasErrors) => <div />
+        renderFormContent: (formik, setHasErrors) => <BasicInfoForm formik={formik} setHasErrors={setHasErrors} />
       },
       {
         title: 'Would you like to go by a nickname?',
@@ -104,20 +104,6 @@ export const mainSteps: MainStep[] = [
       {
         title: 'How much would you like to charge vendors?'
       }
-    ]
-  },
-  {
-    id: 'FINALIZE',
-    stepNumber: 4, // Set to 4 as the previous step was 3.
-    title: 'Finalize Signup', // This title appears in the toolbar to designate "main steps"
-    subSteps: [{
-      title: 'Read and agree to our terms to finish signup!', // This title appears at the top of the subpage to instruct users
-      tip: { //dynamically render a generic tip component
-        title: 'Signup is free!',
-        body: '@100%@ of all successful experts agree to our terms.',
-      },
-      renderFormContent: (formik, setHasErrors) => <div>This your form content</div> // This is a placeholder to show where the form will appear.
-    },
     ]
   }
 ]

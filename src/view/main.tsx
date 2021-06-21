@@ -1,7 +1,7 @@
 import React, { ReactElement, FC } from 'react';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import TopNav from '../components/top-nav';
-import SignupContainer from '../components/signup-container';
+import SignupContainer from './signup-container';
 
 const useStyles = makeStyles(() =>
   createStyles({

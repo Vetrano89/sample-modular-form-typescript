@@ -1,9 +1,9 @@
 import React, { ReactElement, FC, useContext } from 'react';
 import { createStyles, makeStyles, withStyles, Theme } from '@material-ui/core/styles';
-import Tip from './tip';
+import Tip from '../components/tip';
 import Box from '@material-ui/core/Box';
 import { Context } from '../App';
-import FormContent from './form-content';
+import FormContent from '../components/form-content';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
