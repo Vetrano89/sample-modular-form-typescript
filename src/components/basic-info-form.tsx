@@ -11,6 +11,9 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { hasErrors } from '../helpers/form-helpers';
 
+/* TODO: Base form pages should be dynamically generated from the fields list */
+/* given the duplicate props in the input (id, name, formik.touched[fieldKey]) */
+
 const fields = [
   'firstName',
   'lastName',
